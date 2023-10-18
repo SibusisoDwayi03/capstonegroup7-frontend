@@ -36,10 +36,13 @@ public class LandingPage extends VerticalLayout {
 //        Button loginButton = new Button("Login");
 //        loginButton.addClassName("landing-button");
 
-        Button signUpButton = new Button("Sign Up");
-        signUpButton.addClassName("landing-button");
+        //Button signUpButton = new Button("Sign Up");
+        //signUpButton.addClassName("landing-button");
 
-        add(title, loginLink, signUpButton);
+        RouterLink signUplink = new RouterLink("Sign Up", SignUpView.class);
+        signUplink.addClassName("landing-button");
+
+        add(title, loginLink, signUplink);
 
         addClassName("landing-page"); // Add a class name to the LandingPage
     }
