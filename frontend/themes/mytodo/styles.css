@@ -23,4 +23,31 @@
     background-size: cover;
     background-position: center;
 }
+/* Center the content on the page */
+.center-container {
+    background-image: url('istockphoto.jpg'); /* Replace 'images/background.jpg' with the actual path to your image */
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Style the title and RadioButtonGroup */
+.center-container H2 {
+    font-size: 45px;
+    margin-bottom: 100px;
+    text-align: center; /* Move the title to the top center */
+    text-transform: uppercase;
+}
+
+.center-container RadioButtonGroup {
+    font-size: 30px;
+    max-width: 100%;
+    margin: 0 auto;
+    align-self: center; /* Move the RadioButtonGroup to the center */
+}
+
 
