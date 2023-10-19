@@ -44,7 +44,10 @@ public class SignUpView extends VerticalLayout {
                         break;
                     case "Landlord":
                         // Navigate to Landlord signup view
-                        getUI().ifPresent(ui -> ui.navigate("landlord-signup"));
+                        getUI().ifPresent(ui -> ui.navigate("myform"));
+                        RouterLink LandlordView = new RouterLink("LandlordView ", SignUpView.class);
+                        LandlordView.addClassName("landing-button");
+
                         break;
                     case "Tenant":
                         // Navigate to Tenant signup view

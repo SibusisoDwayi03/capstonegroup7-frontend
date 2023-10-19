@@ -6,4 +6,11 @@ import com.vaadin.flow.component.textfield.TextField;
 
 public class LeaseView extends VerticalLayout {
 
+    public LeaseView(){
+        Lease myForm = new Lease();
+        add(myForm);
+
+
+
+    }
 }
