@@ -5,7 +5,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-@Route("myform")
+@Route("landlord")
 public class LandlordView extends VerticalLayout {
     private Button addButton = new Button("Save");
     private Button viewButton = new Button("Read");
