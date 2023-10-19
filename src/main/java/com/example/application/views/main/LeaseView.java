@@ -1,6 +1,8 @@
 package com.example.application.views.main;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.dom.Style;
@@ -8,7 +10,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-@PageTitle("Lease")
+@PageTitle("lease")
 @Route("lease")
 @UIScope
 public class LeaseView extends VerticalLayout {
@@ -19,6 +21,16 @@ public class LeaseView extends VerticalLayout {
     private DatePicker startDate = new DatePicker("Start date");
 
     private DatePicker endDate = new DatePicker("End date");
+
+    private Button save = new Button("Save");
+
+    private Button read = new Button("Read");
+
+    private Button update = new Button("Update");
+
+    private Button delete = new Button("Delete");
+
+    private Button findAll = new Button("Get all");
 
     public LeaseView(){
         leaseId.setPlaceholder("Enter a lease Id");
@@ -43,9 +55,52 @@ public class LeaseView extends VerticalLayout {
         endDateStyle.set("margin-left","auto");
         endDateStyle.set("margin-right","auto");
 
-        this.add(leaseId);
-        this.add(terms);
-        this.add(startDate);
-        this.add(endDate);
+        HorizontalLayout buttonGroup = new HorizontalLayout();
+        buttonGroup.add(save);
+        buttonGroup.add(read);
+        buttonGroup.add(update);
+        buttonGroup.add(delete);
+        buttonGroup.add(findAll);
+
+        Style bgs = buttonGroup.getStyle();
+        bgs.set("margin-left", "auto");
+        bgs.set("margin-right", "auto");
+
+        Style bg = save.getStyle();
+        bg.set("margin-left", "auto");
+        bg.set("margin-right", "auto");
+        bg.set("color", "white");
+        bg.set("background-color", "Black");
+        bg.set("border-radius", "8px");
+
+        Style bg2 = read.getStyle();
+        bg2.set("margin-left", "auto");
+        bg2.set("margin-right", "auto");
+        bg2.set("color", "white");
+        bg2.set("background-color", "Black");
+        bg2.set("border-radius", "8px");
+
+        Style bg3 = update.getStyle();
+        bg3.set("margin-left", "auto");
+        bg3.set("margin-right", "auto");
+        bg3.set("color", "white");
+        bg3.set("background-color", "Black");
+        bg3.set("border-radius", "8px");
+
+        Style bg4 = delete.getStyle();
+        bg4.set("margin-left", "auto");
+        bg4.set("margin-right", "auto");
+        bg4.set("color", "white");
+        bg4.set("background-color", "Black");
+        bg4.set("border-radius", "8px");
+
+        Style bg5 = findAll.getStyle();
+        bg5.set("margin-left", "auto");
+        bg5.set("margin-right", "auto");
+        bg5.set("color", "white");
+        bg5.set("background-color", "Black");
+        bg5.set("border-radius", "8px");
+
+        add(leaseId, terms, startDate, endDate, buttonGroup);
     }
 }
