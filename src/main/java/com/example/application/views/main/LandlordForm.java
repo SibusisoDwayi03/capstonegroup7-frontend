@@ -42,20 +42,8 @@ public class LandlordForm extends FormLayout {
             String password = passwordField.getValue();
             String Address = addressField.getValue();
 
-
-
-
-
-
             Notification.show("Firstname: " + firstName + ", surname: " + surname +", Email" + Email +",landlord" + landlord+ ",contact"+ contact + ",password"+password +",Address"+Address);
-
-
-
-
-
         });
-
-
     }
 
     // Add form validation and submission logic here
