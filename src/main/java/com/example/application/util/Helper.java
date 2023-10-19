@@ -1,7 +1,6 @@
 package com.example.application.util;
 
 //220097429
-
 //import org.apache.commons.validator.routines.EmailValidator;
 import java.time.LocalDate;
 import java.util.Date;
@@ -41,11 +40,12 @@ public class Helper {
     public static boolean emailMatches(String email, String s) {
 
         return false;
-    }
-//    public static boolean isValidEmail(String email){
-//        EmailValidator ev = EmailValidator.getInstance();
-//        return ev.isValid(email);
-//    }
+ 
+
+   public static boolean isValidEmail(String email){
+       EmailValidator ev = EmailValidator.getInstance();
+        return ev.isValid(email);
+  }
 
     public static void checkStringParam(String paramName, String paramValue) {
         if (isEmptyOrNull(paramValue))
