@@ -102,5 +102,10 @@ public class LeaseView extends VerticalLayout {
         bg5.set("border-radius", "8px");
 
         add(leaseId, terms, startDate, endDate, buttonGroup);
+
+    public LeaseView(){
+        Lease myForm = new Lease();
+        add(myForm);
+
     }
 }
