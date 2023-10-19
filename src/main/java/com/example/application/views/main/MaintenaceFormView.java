@@ -6,8 +6,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-@PageTitle("form")
-@Route("form")
+@PageTitle("maintenance")
+@Route("maintenance")
 public class MaintenaceFormView extends VerticalLayout {
     private Button addButton = new Button("Save");
     private Button viewButton = new Button("Read");
