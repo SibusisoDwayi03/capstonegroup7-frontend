@@ -1,7 +1,8 @@
 package com.example.application.views.main;
 
-import com.example.application.domain.Agent;
+import com.example.application.domain.Maintenance;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -10,44 +11,52 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("agent-form")
-public class AgentFormView extends VerticalLayout {
-    private final TextField agentIdField = new TextField("Agent ID");
-    private final TextField firstNameField = new TextField("First Name");
-    private final TextField lastNameField = new TextField("Last Name");
-    private final TextField contactNumberField = new TextField("Contact Number");
-    private final TextField emailField = new TextField("Email");
-    private final TextField passwordField = new TextField("Password");
-    private final TextField addressField = new TextField("Address");
+@Route("maintenance")
+public class Maintenanceview extends VerticalLayout {
+
+
+    private TextField descriptionField = new TextField("Description");
+    private TextField propertyIdField = new TextField("PropertyId");
+    private TextField requestIdField = new TextField("RequestId");
+    private DatePicker datePicker = new DatePicker("RequestDate");
+    private Button submitButton = new Button("Submit");
+
 
     private final Button saveButton = new Button("Save");
     private final Button readButton = new Button("Read");
     private final Button updateButton = new Button("Update");
     private final Button deleteButton = new Button("Delete");
 
-    private List<Agent> agents = new ArrayList<>();
-    private ListDataProvider<Agent> agentDataProvider = new ListDataProvider<>(agents);
+    private List<Maintenance> maintenances = new ArrayList<>();
+    private ListDataProvider<Maintenance> maintenanceDataProvider = new ListDataProvider<>(maintenances);
 
-    public AgentFormView() {
+    public Maintenanceview() {
+
         // Create a form layout and add form fields
         FormLayout formLayout = new FormLayout();
-        formLayout.add(agentIdField, firstNameField, lastNameField, contactNumberField, emailField, passwordField, addressField);
+        formLayout.add(descriptionField, propertyIdField , requestIdField, datePicker ,submitButton);
 
         // Create a layout for buttons
         HorizontalLayout buttonLayout = new HorizontalLayout(saveButton, readButton, updateButton, deleteButton);
         buttonLayout.setSpacing(true);
 
-        saveButton.addClickListener(event -> saveAgent());
-        readButton.addClickListener(event -> readAgent());
-        updateButton.addClickListener(event -> updateAgent());
-        deleteButton.addClickListener(event -> deleteAgent());
+        saveButton.addClickListener(event -> saveMaintenance());
+        readButton.addClickListener(event -> readMaintenance());
+        updateButton.addClickListener(event -> updateMaintenance());
+        deleteButton.addClickListener(event -> deleteMaintenance());
 
         // Create a grid to display agents
-        Grid<Agent> agentGrid = new Grid<>(Agent.class);
-        agentGrid.setDataProvider(agentDataProvider);
+        Grid<Maintenance> maintenanceGrid = new Grid<>(Maintenance.class);
+        maintenanceGrid.setDataProvider(maintenanceDataProvider);
+
+
+
+
 
 //// Only add columns for the properties you want to display
 //        agentGrid.addColumn("agentId").setHeader("Agent ID");
@@ -55,6 +64,7 @@ public class AgentFormView extends VerticalLayout {
 //        agentGrid.addColumn("lastName").setHeader("Last Name");
 
         // Add the form layout, buttons, and grid to the view
+
         Style bgs = buttonLayout.getStyle();
         bgs.set("margin-left", "auto");
         bgs.set("margin-right", "auto");
@@ -87,10 +97,10 @@ public class AgentFormView extends VerticalLayout {
         bg4.set("background-color", "Black");
         bg4.set("border-radius", "8px");
 
-        add(formLayout, buttonLayout, agentGrid);
+        add(formLayout, buttonLayout, maintenanceGrid);
     }
 
-    private void saveAgent() {
+    private void saveMaintenance() {
         // Retrieve values from form fields and save the agent (similar to previous code)
         // ...
 
@@ -98,29 +108,29 @@ public class AgentFormView extends VerticalLayout {
         clearFormFields();
     }
 
-    private void readAgent() {
+    private void readMaintenance() {
         // Implement logic to read an agent from the backend (e.g., by ID)
         // Update the form fields with the agent's details
     }
 
-    private void updateAgent() {
+    private void updateMaintenance() {
         // Implement logic to update an agent's details in the backend
         // Typically, retrieve the agent by ID and update the properties
     }
 
-    private void deleteAgent() {
+    private void deleteMaintenance() {
         // Implement logic to delete an agent from the backend (e.g., by ID)
         // Remove the agent from the list and refresh the data provider
     }
 
     private void clearFormFields() {
-        agentIdField.clear();
-        firstNameField.clear();
-        lastNameField.clear();
-        contactNumberField.clear();
-        emailField.clear();
-        passwordField.clear();
-        addressField.clear();
+        descriptionField.clear();
+        requestIdField.clear();
+        propertyIdField.clear();
+        datePicker.clear();
     }
+
+
+
 }
 
