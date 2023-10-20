@@ -33,7 +33,7 @@ public class LeaseView extends VerticalLayout {
     private Button findAll = new Button("Get all");
 
     public LeaseView() {
-        leaseId.setPlaceholder("Enter a lease Id");
+        leaseId.setPlaceholder("Auto generated lease id");
         terms.setPlaceholder("Enter in the terms");
         startDate.setPlaceholder("Select the start date");
         endDate.setPlaceholder("Select the end date");
