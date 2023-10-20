@@ -45,6 +45,25 @@ public class Application implements Serializable {
         this.references = references;
     }
 
+    public Application(boolean bankStatement, boolean paySlip, String status, String adress, String email,
+                       String contactNumber, int id, String firstName, String lastName, LocalDate applicationDate,
+                       String propertyId, String tenantId, boolean copyOfId, String references) {
+        this.bankStatement = bankStatement;
+        this.paySlip = paySlip;
+        this.status = status;
+        this.adress = adress;
+        this.email = email;
+        this.contactNumber = contactNumber;
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.applicationDate = applicationDate;
+        this.propertyId = propertyId;
+        this.tenantId = tenantId;
+        this.copyOfId = copyOfId;
+        this.references = references;
+    }
+
     public Application(Builder builder){
         this.bankStatement = builder.bankStatement;
         this.paySlip = builder.paySlip;

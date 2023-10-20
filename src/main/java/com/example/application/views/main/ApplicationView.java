@@ -8,6 +8,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.component.textfield.TextFieldVariant;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -15,6 +16,7 @@ import com.vaadin.flow.spring.annotation.UIScope;
 @Route(value = "application")
 @UIScope
 public class ApplicationView extends VerticalLayout {
+    // Creating and instantiating variables for components.
     private TextField applicationId = new TextField("Application Id");
     private Checkbox bankStatement = new Checkbox("Bank statement");
 
@@ -55,7 +57,9 @@ public class ApplicationView extends VerticalLayout {
     private Button findAll = new Button("Get all");
 
     public ApplicationView(){
+        // Adds place holders for the various fields.
         applicationId.setPlaceholder("Auto generated application id");
+
         bankStatement.setLabel("Click if bank statement is true");
         paySlip.setLabel("Click if pay slip is true");
         status.setPlaceholder("Enter in the status");
@@ -71,8 +75,73 @@ public class ApplicationView extends VerticalLayout {
         copyOfId.setLabel("Click if copy of id is true");
         references.setPlaceholder("Enter in references");
 
+        // Styles the various field components.
+        Style applicationIdStyle = applicationId.getStyle();
+        applicationIdStyle.set("margin-left", "auto");
+        applicationIdStyle.set("margin-right", "auto");
+        applicationIdStyle.setWidth("auto");
+        //applicationIdStyle.setTextAlign(Style.TextAlign.CENTER);
 
+        Style bankStatementStyle = bankStatement.getStyle();
+        bankStatementStyle.set("margin-left", "auto");
+        bankStatementStyle.set("margin-right", "auto");
 
+        Style paySlipStyle = paySlip.getStyle();
+        paySlipStyle.set("margin-left", "auto");
+        paySlipStyle.set("margin-right", "auto");
+
+        Style statusStyle = status.getStyle();
+        statusStyle.set("margin-left", "auto");
+        statusStyle.set("margin-right", "auto");
+
+        Style adressStyle = adress.getStyle();
+        adressStyle.set("margin-left", "auto");
+        adressStyle.set("margin-right", "auto");
+
+        Style emailStyle = email.getStyle();
+        emailStyle.set("margin-left", "auto");
+        emailStyle.set("margin-right", "auto");
+
+        Style contactNumberStyle = contactNumber.getStyle();
+        contactNumberStyle.set("margin-left", "auto");
+        contactNumberStyle.set("margin-right", "auto");
+
+        Style idStyle = id.getStyle();
+        idStyle.set("margin-left", "auto");
+        idStyle.set("margin-right", "auto");
+
+        Style firstNameStyle = firstName.getStyle();
+        firstNameStyle.set("margin-left", "auto");
+        firstNameStyle.set("margin-right", "auto");
+
+        Style lastNameStyle = lastName.getStyle();
+        lastNameStyle.set("margin-left", "auto");
+        lastNameStyle.set("margin-right", "auto");
+
+        Style applicationDateStyle = applicationDate.getStyle();
+        applicationDateStyle.set("margin-left", "auto");
+        applicationDateStyle.set("margin-right", "auto");
+
+        Style propertyIdStyle = propertyId.getStyle();
+        propertyIdStyle.set("margin-left", "auto");
+        propertyIdStyle.set("margin-right", "auto");
+
+        Style tenantIdStyle = tenantId.getStyle();
+        tenantIdStyle.set("margin-left", "auto");
+        tenantIdStyle.set("margin-right", "auto");
+
+        Style copyOfIdStyle = copyOfId.getStyle();
+        copyOfIdStyle.set("margin-left", "auto");
+        copyOfIdStyle.set("margin-right", "auto");
+
+        Style referencesStyle = references.getStyle();
+        referencesStyle.set("margin-left", "auto");
+        referencesStyle.set("margin-right", "auto");
+
+        // This styles the components to be centered.
+        applicationId.addThemeVariants(TextFieldVariant.LUMO_ALIGN_CENTER);
+
+        // Creating a horizontal layout and adding buttons to the layout.
         HorizontalLayout buttonGroup = new HorizontalLayout();
         buttonGroup.add(save);
         buttonGroup.add(read);
@@ -80,6 +149,28 @@ public class ApplicationView extends VerticalLayout {
         buttonGroup.add(delete);
         buttonGroup.add(findAll);
 
+        // Functionality for buttons.
+        save.addClickListener(e ->{
+
+        });
+
+        read.addClickListener(e ->{
+
+        });
+
+        update.addClickListener(e ->{
+
+        });
+
+        delete.addClickListener(e ->{
+
+        });
+
+        findAll.addClickListener(e ->{
+
+        });
+
+        // Styles the various button components.
         Style bgs = buttonGroup.getStyle();
         bgs.set("margin-left", "auto");
         bgs.set("margin-right", "auto");
@@ -119,6 +210,7 @@ public class ApplicationView extends VerticalLayout {
         bg5.set("background-color", "Black");
         bg5.set("border-radius", "8px");
 
+        // This adds the components to the web page.
         add(applicationId, bankStatement, paySlip, status, adress, email, contactNumber, id,
                 firstName, lastName, applicationDate, propertyId, tenantId, copyOfId, references, buttonGroup);
     }

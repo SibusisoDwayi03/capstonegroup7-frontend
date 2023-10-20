@@ -1,5 +1,6 @@
 package com.example.application;
 
+import com.example.application.api.LeaseApi;
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,9 @@ public class Application implements AppShellConfigurator {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
+
+        LeaseApi i = new LeaseApi();
+        i.save();
     }
 
 }

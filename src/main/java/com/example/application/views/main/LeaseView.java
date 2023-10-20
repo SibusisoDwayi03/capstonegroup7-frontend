@@ -62,6 +62,27 @@ public class LeaseView extends VerticalLayout {
         buttonGroup.add(delete);
         buttonGroup.add(findAll);
 
+        // Functionality for buttons.
+        save.addClickListener(e ->{
+
+        });
+
+        read.addClickListener(e ->{
+
+        });
+
+        update.addClickListener(e ->{
+
+        });
+
+        delete.addClickListener(e ->{
+
+        });
+
+        findAll.addClickListener(e ->{
+
+        });
+
         Style bgs = buttonGroup.getStyle();
         bgs.set("margin-left", "auto");
         bgs.set("margin-right", "auto");
