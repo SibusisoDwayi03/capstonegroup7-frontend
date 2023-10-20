@@ -24,6 +24,12 @@ public class Lease implements Serializable {
         this.endDate = endDate;
     }
 
+    public Lease(String terms, LocalDate startDate, LocalDate endDate) {
+        this.terms = terms;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public Lease(Builder builder) {
         this.leaseId = builder.leaseId;
         this.terms = builder.terms;
