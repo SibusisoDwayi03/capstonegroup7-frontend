@@ -3,6 +3,8 @@ package com.example.application.views.main;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
@@ -19,11 +21,11 @@ public class ApplicationView extends VerticalLayout {
 
     private TextField adress = new TextField("Address");
 
-    private TextField email = new TextField("Email");
+    private EmailField email = new EmailField("Email");
 
     private TextField contactNumber = new TextField("Contact number");
 
-    private int id;
+    private NumberField id = new NumberField("Id");
 
     private TextField firstName = new TextField("First name");
 
@@ -38,4 +40,8 @@ public class ApplicationView extends VerticalLayout {
     private Checkbox copyOfId = new Checkbox("Copy of Id");
 
     private TextField references = new TextField("References");
+
+    public ApplicationView(){
+
+    }
 }

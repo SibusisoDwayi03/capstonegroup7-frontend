@@ -32,28 +32,28 @@ public class LeaseView extends VerticalLayout {
 
     private Button findAll = new Button("Get all");
 
-    public LeaseView(){
+    public LeaseView() {
         leaseId.setPlaceholder("Enter a lease Id");
         terms.setPlaceholder("Enter in the terms");
         startDate.setPlaceholder("Select the start date");
         endDate.setPlaceholder("Select the end date");
 
         Style leaseIdStyle = leaseId.getStyle();
-        leaseIdStyle.set("margin-left","auto");
-        leaseIdStyle.set("margin-right","auto");
+        leaseIdStyle.set("margin-left", "auto");
+        leaseIdStyle.set("margin-right", "auto");
         leaseIdStyle.setTextAlign(Style.TextAlign.CENTER);
 
         Style termsStyle = terms.getStyle();
-        termsStyle.set("margin-left","auto");
-        termsStyle.set("margin-right","auto");
+        termsStyle.set("margin-left", "auto");
+        termsStyle.set("margin-right", "auto");
 
         Style startDateStyle = startDate.getStyle();
-        startDateStyle.set("margin-left","auto");
-        startDateStyle.set("margin-right","auto");
+        startDateStyle.set("margin-left", "auto");
+        startDateStyle.set("margin-right", "auto");
 
         Style endDateStyle = endDate.getStyle();
-        endDateStyle.set("margin-left","auto");
-        endDateStyle.set("margin-right","auto");
+        endDateStyle.set("margin-left", "auto");
+        endDateStyle.set("margin-right", "auto");
 
         HorizontalLayout buttonGroup = new HorizontalLayout();
         buttonGroup.add(save);
@@ -103,9 +103,10 @@ public class LeaseView extends VerticalLayout {
 
         add(leaseId, terms, startDate, endDate, buttonGroup);
 
-    public LeaseView(){
-        Lease myForm = new Lease();
-        add(myForm);
-
+//    public LeaseView(){
+//        Lease myForm = new Lease();
+//        add(myForm);
+//
+//    }
     }
 }
