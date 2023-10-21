@@ -10,11 +10,14 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
+import org.springframework.web.client.RestTemplate;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Route(value = "agent-form", layout = HomeView.class)
 public class AgentFormView extends VerticalLayout {
+    private RestTemplate restTemplate;
     private final TextField agentIdField = new TextField("Agent ID");
     private final TextField firstNameField = new TextField("First Name");
     private final TextField lastNameField = new TextField("Last Name");
@@ -31,7 +34,10 @@ public class AgentFormView extends VerticalLayout {
     private List<Agent> agents = new ArrayList<>();
     private ListDataProvider<Agent> agentDataProvider = new ListDataProvider<>(agents);
 
-    public AgentFormView() {
+    private Grid<Agent> agentGrid = new Grid<>(Agent.class);
+
+    public AgentFormView(RestTemplate restTemplate) {
+
         // Create a form layout and add form fields
         FormLayout formLayout = new FormLayout();
         formLayout.add(agentIdField, firstNameField, lastNameField, contactNumberField, emailField, passwordField, addressField);
@@ -46,13 +52,8 @@ public class AgentFormView extends VerticalLayout {
         deleteButton.addClickListener(event -> deleteAgent());
 
         // Create a grid to display agents
-        Grid<Agent> agentGrid = new Grid<>(Agent.class);
+        add(formLayout,buttonLayout,agentGrid);
         agentGrid.setDataProvider(agentDataProvider);
-
-//// Only add columns for the properties you want to display
-//        agentGrid.addColumn("agentId").setHeader("Agent ID");
-//        agentGrid.addColumn("firstName").setHeader("First Name");
-//        agentGrid.addColumn("lastName").setHeader("Last Name");
 
         // Add the form layout, buttons, and grid to the view
         Style bgs = buttonLayout.getStyle();
