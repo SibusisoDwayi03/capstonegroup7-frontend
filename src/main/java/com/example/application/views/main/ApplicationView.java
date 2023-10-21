@@ -13,7 +13,7 @@ import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-@Route(value = "application")
+@Route(value = "application", layout = HomeView.class)
 @UIScope
 public class ApplicationView extends VerticalLayout {
     // Creating and instantiating variables for components.

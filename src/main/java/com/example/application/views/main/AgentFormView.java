@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("agent-form")
+@Route(value = "agent-form", layout = HomeView.class)
 public class AgentFormView extends VerticalLayout {
     private RestTemplate restTemplate;
     private final TextField agentIdField = new TextField("Agent ID");

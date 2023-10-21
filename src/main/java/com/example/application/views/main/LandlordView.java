@@ -15,7 +15,7 @@ import com.vaadin.flow.router.Route;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("landlord")
+@Route(value = "landlord", layout = HomeView.class)
 public class LandlordView extends VerticalLayout {
 
         private final TextField landlordIdField = new TextField("Agent ID");
