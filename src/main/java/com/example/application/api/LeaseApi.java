@@ -32,20 +32,21 @@ public class LeaseApi {
     }
 
     public Lease delete() {
-        String deleteRequest = url + "/delete/" + Lease.getLeaseId();
+        String deleteRequest = url + "/delete/"; //+ Lease.getLeaseId();
         restTemplate.delete(deleteRequest);
         return null;
     }
 
     public Set<Lease> findALl() {
-        String apiUrl = url + "getAll";
-        ResponseEntity<Lease[]> response1 = restTemplate.getForEntity(apiUrl, Lease[].class);
-
-        if (response1.getStatusCode().is2xxSuccessful()) {
-            Lease[] lease = response1.getBody();
-            return new HashSet<>(Arrays.asList(lease));
-        } else {
-            return Collections.emptySet();
-        }
+//        String apiUrl = url + "getAll";
+//        ResponseEntity<Lease[]> response1 = restTemplate.getForEntity(apiUrl, Lease[].class);
+//
+//        if (response1.getStatusCode().is2xxSuccessful()) {
+//            Lease[] lease = response1.getBody();
+//            return new HashSet<>(lease);//Arrays.asList(lease));
+//        } else {
+//            return Collections.emptySet();
+//        }
+        return null;
     }
 }
