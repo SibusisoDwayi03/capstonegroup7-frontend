@@ -54,10 +54,6 @@ public class Maintenanceview extends VerticalLayout {
         Grid<Maintenance> maintenanceGrid = new Grid<>(Maintenance.class);
         maintenanceGrid.setDataProvider(maintenanceDataProvider);
 
-
-
-
-
 //// Only add columns for the properties you want to display
 //        agentGrid.addColumn("agentId").setHeader("Agent ID");
 //        agentGrid.addColumn("firstName").setHeader("First Name");
@@ -97,6 +93,13 @@ public class Maintenanceview extends VerticalLayout {
         bg4.set("background-color", "Black");
         bg4.set("border-radius", "8px");
 
+        Style bg5 = submitButton.getStyle();
+        bg5.set("margin-left", "auto");
+        bg5.set("margin-right", "auto");
+        bg5.set("color", "white");
+        bg5.set("background-color", "Black");
+        bg5.set("border-radius", "8px");
+
         add(formLayout, buttonLayout, maintenanceGrid);
     }
 
@@ -129,8 +132,6 @@ public class Maintenanceview extends VerticalLayout {
         propertyIdField.clear();
         datePicker.clear();
     }
-
-
 
 }
 
