@@ -4,15 +4,20 @@ import com.example.application.domain.Agent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Route("agent-form")
@@ -37,6 +42,7 @@ public class AgentFormView extends VerticalLayout {
     private Grid<Agent> agentGrid = new Grid<>(Agent.class);
 
     public AgentFormView(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
 
         // Create a form layout and add form fields
         FormLayout formLayout = new FormLayout();
@@ -52,7 +58,7 @@ public class AgentFormView extends VerticalLayout {
         deleteButton.addClickListener(event -> deleteAgent());
 
         // Create a grid to display agents
-        add(formLayout,buttonLayout,agentGrid);
+        add(formLayout, buttonLayout, agentGrid);
         agentGrid.setDataProvider(agentDataProvider);
 
         // Add the form layout, buttons, and grid to the view
@@ -92,16 +98,44 @@ public class AgentFormView extends VerticalLayout {
     }
 
     private void saveAgent() {
-        // Retrieve values from form fields and save the agent (similar to previous code)
-        // ...
+        Agent agent = new Agent(
+                agentIdField.getValue(),
+                firstNameField.getValue(),
+                lastNameField.getValue(),
+                contactNumberField.getValue(),
+                emailField.getValue(),
+                passwordField.getValue(),
+                addressField.getValue()
+        );
 
-        // Clear form fields after saving
-        clearFormFields();
+        try {
+            ResponseEntity<Agent> response = restTemplate.postForEntity("http://localhost:50790/agents", agent, Agent.class);
+            if (response.getStatusCode() == HttpStatus.CREATED) {
+                Notification.show("Agent saved successfully");
+                clearFormFields();
+                readAgent();
+            } else {
+                Notification.show("Failed to save agent");
+            }
+        } catch (RestClientException e) {
+            Notification.show("Failed to save agent");
+        }
     }
 
     private void readAgent() {
-        // Implement logic to read an agent from the backend (e.g., by ID)
-        // Update the form fields with the agent's details
+        try {
+
+            Agent[] response = restTemplate.getForObject("http://localhost:50790/agents", Agent[].class);
+            if (response != null) {
+                agents.clear();
+                agents.addAll(Arrays.asList(response));
+                agentDataProvider.refreshAll();
+            } else {
+                Notification.show("No agents found");
+            }
+        } catch (RestClientException e) {
+            Notification.show("Failed to retrieve agents from the server");
+        }
     }
 
     private void updateAgent() {
@@ -110,8 +144,19 @@ public class AgentFormView extends VerticalLayout {
     }
 
     private void deleteAgent() {
-        // Implement logic to delete an agent from the backend (e.g., by ID)
-        // Remove the agent from the list and refresh the data provider
+        String agentId = agentIdField.getValue();
+        if (agentId != null && !agentId.isEmpty()) {
+            try {
+                restTemplate.delete("http://localhost:50790/agents/{{agentId}}", agentId);
+                Notification.show("Agent deleted successfully");
+                clearFormFields();
+                readAgent();
+            } catch (RestClientException e) {
+                Notification.show("Failed to delete agent");
+            }
+        } else {
+            Notification.show("Agent ID is required to delete");
+        }
     }
 
     private void clearFormFields() {

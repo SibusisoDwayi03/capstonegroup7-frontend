@@ -24,7 +24,7 @@ public class Agent implements Serializable {
     private String address;
 
 
-    protected Agent(){}
+    public Agent(String value, String firstNameFieldValue, String lastNameFieldValue, String contactNumberFieldValue, String emailFieldValue, String passwordFieldValue, String addressFieldValue){}
 
     private Agent(Builder builder){
         this.agentId = builder.agentId;
