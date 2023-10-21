@@ -16,7 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("maintenance")
+@Route(value = "maintenance", layout = HomeView.class)
 public class Maintenanceview extends VerticalLayout {
 
 

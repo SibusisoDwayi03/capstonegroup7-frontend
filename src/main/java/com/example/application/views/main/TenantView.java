@@ -16,7 +16,7 @@ import com.vaadin.flow.router.RouteAlias;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("Tenant")
+@Route(value = "Tenant", layout = HomeView.class)
 @RouteAlias("tenant")
 public class TenantView extends VerticalLayout {
     private final TextField tenantIdField = new TextField("Tenant ID");

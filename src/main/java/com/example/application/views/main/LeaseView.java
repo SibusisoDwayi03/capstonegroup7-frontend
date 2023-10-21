@@ -11,7 +11,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @PageTitle("lease")
-@Route("lease")
+@Route(value = "lease", layout = HomeView.class)
 @UIScope
 public class LeaseView extends VerticalLayout {
     private TextField leaseId = new TextField("Lease Id");
@@ -123,11 +123,5 @@ public class LeaseView extends VerticalLayout {
         bg5.set("border-radius", "8px");
 
         add(leaseId, terms, startDate, endDate, buttonGroup);
-
-//    public LeaseView(){
-//        Lease myForm = new Lease();
-//        add(myForm);
-//
-//    }
     }
 }
