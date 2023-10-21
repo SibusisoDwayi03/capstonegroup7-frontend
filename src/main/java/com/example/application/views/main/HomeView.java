@@ -25,7 +25,7 @@ public class HomeView extends AppLayout {
         H1 rental = new H1("Rental Real Estate Management");
         rental.addClassNames(
                 LumoUtility.FontSize.LARGE,
-                LumoUtility.Margin.MEDIUM);
+                LumoUtility.Margin.AUTO);
 
         var header = new HorizontalLayout(new DrawerToggle(), rental);
 
