@@ -1,21 +1,19 @@
-/*
- * Agent.java
- * Author: Sibusiso Dwayi(220226466)
- * Date: 14 June 2023
- * */
 package com.example.application.domain;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class Agent implements Serializable {
-    private String agentId;
+public class Landlord implements Serializable {
+    private String landlordId;
 
+    @NotNull
     private String firstname;
 
+    @NotNull
     private String lastname;
 
-    private String contactnumber;
+    private String contactNumber;
 
     private String email;
 
@@ -23,39 +21,43 @@ public class Agent implements Serializable {
 
     private String address;
 
+    protected Landlord() {
+    }
 
-    protected Agent(){}
-
-    private Agent(Builder builder){
-        this.agentId = builder.agentId;
+    private Landlord(Builder builder) {
+        this.landlordId = builder.landlordId;
         this.firstname = builder.firstname;
         this.lastname = builder.lastname;
-        this.contactnumber = builder.contactnumber;
+        this.contactNumber = builder.contactNumber;
         this.email = builder.email;
         this.password = builder.password;
         this.address = builder.address;
-
-
     }
 
-    public String getAgentId() {
-        return agentId;
+    public String getLandlordId() {
+        return landlordId;
     }
+
     public String getFirstname() {
         return firstname;
     }
+
     public String getLastname() {
         return lastname;
     }
-    public String getContactnumber() {
-        return contactnumber;
+
+    public String getContactNumber() {
+        return contactNumber;
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getPassword() {
         return password;
     }
+
     public String getAddress() {
         return address;
     }
@@ -64,30 +66,29 @@ public class Agent implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Agent agent = (Agent) o;
-        return Objects.equals(agentId, agent.agentId) && Objects.equals(firstname, agent.firstname) && Objects.equals(lastname, agent.lastname)&& Objects.equals(contactnumber, agent.contactnumber)&& Objects.equals(email, agent.email)&& Objects.equals(password, agent.password)&& Objects.equals(address, agent.address);
+        Landlord landlord = (Landlord) o;
+        return Objects.equals(landlordId, landlord.landlordId) && Objects.equals(firstname, landlord.firstname)
+                && Objects.equals(lastname, landlord.lastname) && Objects.equals(contactNumber, landlord.contactNumber)
+                && Objects.equals(email, landlord.email) && Objects.equals(password, landlord.password)
+                && Objects.equals(address, landlord.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(agentId, firstname, lastname, contactnumber, email, password, address);
+        return Objects.hash(landlordId, firstname, lastname, contactNumber, email, password, address);
     }
 
-    public static class Builder{
-        private String agentId;
+    public static class Builder {
+        private String landlordId;
         private String firstname;
         private String lastname;
-
-        private String contactnumber;
-
+        private String contactNumber;
         private String email;
-
         private String password;
-
         private String address;
 
-        public Builder setAgentId(String agentId) {
-            this.agentId = agentId;
+        public Builder setLandlordId(String landlordId) {
+            this.landlordId = landlordId;
             return this;
         }
 
@@ -100,46 +101,50 @@ public class Agent implements Serializable {
             this.lastname = lastname;
             return this;
         }
-        public Builder setContactnumber(String contactnumber) {
-            this.contactnumber = contactnumber;
+
+        public Builder setContactNumber(String contactNumber) {
+            this.contactNumber = contactNumber;
             return this;
         }
+
         public Builder setEmail(String email) {
             this.email = email;
             return this;
         }
+
         public Builder setPassword(String password) {
             this.password = password;
             return this;
         }
+
         public Builder setAddress(String address) {
             this.address = address;
             return this;
         }
 
-        public Builder copy(Agent agent){
-            this.agentId = agent.agentId;
-            this.firstname = agent.firstname;
-            this.lastname = agent.lastname;
-            this.contactnumber = agent.contactnumber;
-            this.email = agent.email;
-            this.password = agent.password;
-            this.address =agent.address;
+        public Builder copy(Landlord landlord) {
+            this.landlordId = landlord.landlordId;
+            this.firstname = landlord.firstname;
+            this.lastname = landlord.lastname;
+            this.contactNumber = landlord.contactNumber;
+            this.email = landlord.email;
+            this.password = landlord.password;
+            this.address = landlord.address;
             return this;
         }
 
-        public Agent build(){
-            return new Agent(this);
+        public Landlord build() {
+            return new Landlord(this);
         }
     }
 
     @Override
     public String toString() {
-        return "Agent{" +
-                "agentId='" + agentId + '\'' +
+        return "Landlord{" +
+                "landlordId='" + landlordId + '\'' +
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
-                ", contactnumber='" + contactnumber + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
