@@ -49,5 +49,11 @@
     margin: 0 auto;
     align-self: center; /* Move the RadioButtonGroup to the center */
 }
+.home-view{
+      background-image: url('istockphoto.jpg');
+     background-size: cover; /* Cover the entire viewport */
+     background-position: center center; /* Center the image horizontally and vertically */
+     background-attachment: fixed; /* Fixed background, doesn't scroll with content */
+ }
 
 

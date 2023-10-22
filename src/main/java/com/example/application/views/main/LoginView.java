@@ -1,15 +1,19 @@
 package com.example.application.views.main;
 
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @Route(value = "login")
 @UIScope
+@AnonymousAllowed
 public class LoginView extends VerticalLayout {
 
     private TextField usernameField = new TextField("Username");
@@ -20,6 +24,7 @@ public class LoginView extends VerticalLayout {
         configureComponents();
         buildLayout();
         applyStyles();
+        loginButton.addClickListener(event -> login());
     }
 
     private void configureComponents() {
@@ -46,16 +51,7 @@ public class LoginView extends VerticalLayout {
     }
 
     private void login() {
-        String username = usernameField.getValue();
-        String password = passwordField.getValue();
-
-        //  call your backend service to validate the login.
-        // For this example, we'll assume a simple validation.
-        if (isValidLogin(username, password)) {
-            Notification.show("Login successful");
-        } else {
-            Notification.show("Login failed");
-        }
+        UI.getCurrent().navigate("landing");
     }
 
     private boolean isValidLogin(String username, String password) {

@@ -25,7 +25,6 @@ public class Application implements AppShellConfigurator {
     }
 
     @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
+    public RestTemplate restTemplate() {return new RestTemplate();
     }
 }

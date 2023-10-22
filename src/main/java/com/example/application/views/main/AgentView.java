@@ -4,7 +4,6 @@ import com.example.application.domain.Agent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Route(value = "agent-form", layout = HomeView.class)
+@Route("agent-form")
 public class AgentFormView extends VerticalLayout {
     private RestTemplate restTemplate;
     private final TextField agentIdField = new TextField("Agent ID");
@@ -44,12 +43,6 @@ public class AgentFormView extends VerticalLayout {
 
     public AgentFormView(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-
-        H2 heading = new H2("Agent form:");
-
-        Style headingStyle = heading.getStyle();
-        headingStyle.set("margin-left", "auto");
-        headingStyle.set("margin-right", "auto");
 
         // Create a form layout and add form fields
         FormLayout formLayout = new FormLayout();
@@ -101,7 +94,7 @@ public class AgentFormView extends VerticalLayout {
         bg4.set("background-color", "Black");
         bg4.set("border-radius", "8px");
 
-        add(heading, formLayout, buttonLayout, agentGrid);
+        add(formLayout, buttonLayout, agentGrid);
     }
 
     private void saveAgent() {

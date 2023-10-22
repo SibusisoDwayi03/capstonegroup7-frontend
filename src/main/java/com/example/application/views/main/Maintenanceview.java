@@ -1,26 +1,33 @@
 package com.example.application.views.main;
 
+import com.example.application.domain.Landlord;
 import com.example.application.domain.Maintenance;
+import com.example.application.domain.Tenant;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-@Route(value = "maintenance", layout = HomeView.class)
+@Route("maintenance")
 public class Maintenanceview extends VerticalLayout {
 
-
+    private RestTemplate restTemplate;
     private TextField descriptionField = new TextField("Description");
     private TextField propertyIdField = new TextField("PropertyId");
     private TextField requestIdField = new TextField("RequestId");
@@ -36,12 +43,10 @@ public class Maintenanceview extends VerticalLayout {
     private List<Maintenance> maintenances = new ArrayList<>();
     private ListDataProvider<Maintenance> maintenanceDataProvider = new ListDataProvider<>(maintenances);
 
-    public Maintenanceview() {
-        H2 heading = new H2("Maintenance form:");
+    public Maintenanceview(RestTemplate restTemplate) {
 
-        Style headingStyle = heading.getStyle();
-        headingStyle.set("margin-left", "auto");
-        headingStyle.set("margin-right", "auto");
+        this.restTemplate = restTemplate;
+
 
         // Create a form layout and add form fields
         FormLayout formLayout = new FormLayout();
@@ -60,12 +65,6 @@ public class Maintenanceview extends VerticalLayout {
         Grid<Maintenance> maintenanceGrid = new Grid<>(Maintenance.class);
         maintenanceGrid.setDataProvider(maintenanceDataProvider);
 
-//// Only add columns for the properties you want to display
-//        agentGrid.addColumn("agentId").setHeader("Agent ID");
-//        agentGrid.addColumn("firstName").setHeader("First Name");
-//        agentGrid.addColumn("lastName").setHeader("Last Name");
-
-        // Add the form layout, buttons, and grid to the view
 
         Style bgs = buttonLayout.getStyle();
         bgs.set("margin-left", "auto");
@@ -106,20 +105,46 @@ public class Maintenanceview extends VerticalLayout {
         bg5.set("background-color", "Black");
         bg5.set("border-radius", "8px");
 
-        add(heading, formLayout, buttonLayout, maintenanceGrid);
+        add(formLayout, buttonLayout, maintenanceGrid);
     }
 
     private void saveMaintenance() {
-        // Retrieve values from form fields and save the agent (similar to previous code)
-        // ...
+        Maintenance maintenance = new Maintenance(
+                descriptionField.getValue(),
+                propertyIdField.getValue(),
+                requestIdField.getValue(),
+                datePicker.getValue()
+        );
 
-        // Clear form fields after saving
+        try {
+            ResponseEntity<Maintenance> response = restTemplate.postForEntity("http://localhost:50790/maintenancies/save", maintenance, Maintenance.class);
+            if (response.getStatusCode() == HttpStatus.CREATED) {
+                Notification.show("Maintanance saved successfully");
+                clearFormFields();
+                readMaintenance(); // Optional: Refresh the grid after saving
+            } else {
+                Notification.show("Maintanance saved successfully");
+            }
+        } catch (RestClientException e) {
+            Notification.show("Maintanance to save landlord");
+        }
         clearFormFields();
     }
 
     private void readMaintenance() {
-        // Implement logic to read an agent from the backend (e.g., by ID)
-        // Update the form fields with the agent's details
+        try {
+            Maintenance[] response = restTemplate.getForObject("http://localhost:50790/maintenancies/all", Maintenance[].class);
+            if (response != null) {
+                maintenances.clear();
+                maintenances.addAll(Arrays.asList(response));
+                maintenanceDataProvider.refreshAll();
+
+            } else {
+                Notification.show("No maintenancies found");
+            }
+        } catch (RestClientException e) {
+            Notification.show("Failed to retrieve maintenancies from the server");
+        }
     }
 
     private void updateMaintenance() {
@@ -128,8 +153,18 @@ public class Maintenanceview extends VerticalLayout {
     }
 
     private void deleteMaintenance() {
-        // Implement logic to delete an agent from the backend (e.g., by ID)
-        // Remove the agent from the list and refresh the data provider
+        String requestId = requestIdField.getValue();
+        if (requestId != null && !requestId.isEmpty()) {
+            try {
+                restTemplate.delete("http://localhost:50790/maintenancies/delete/" + requestId);
+                Notification.show("Maintenance deleted successfully");
+                clearFormFields();
+            } catch (RestClientException e) {
+                Notification.show("failed to delete maintenance");
+            }
+        } else {
+            Notification.show("request ID is required to delete");
+        }
     }
 
     private void clearFormFields() {

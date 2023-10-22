@@ -1,8 +1,9 @@
 package com.example.application.views.main;
 
+import com.example.application.domain.Agent;
+import com.example.application.domain.Landlord;
 import com.example.application.domain.Tenant;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
@@ -13,13 +14,23 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-@Route(value = "Tenant", layout = HomeView.class)
-@RouteAlias("tenant")
+@Route("Tenant")
+//@RouteAlias("tenant")
+@SpringComponent
+@UIScope
 public class TenantView extends VerticalLayout {
+    private RestTemplate restTemplate;
     private final TextField tenantIdField = new TextField("Tenant ID");
     private final TextField firstNameField = new TextField("First Name");
     private final TextField lastNameField = new TextField("Last Name");
@@ -35,12 +46,8 @@ public class TenantView extends VerticalLayout {
     private List<Tenant> tenants = new ArrayList<>();
     private ListDataProvider<Tenant> tenantDataProvider = new ListDataProvider<>(tenants);
 
-    public TenantView() {
-        H2 heading = new H2("Tenant form:");
-
-        Style headingStyle = heading.getStyle();
-        headingStyle.set("margin-left", "auto");
-        headingStyle.set("margin-right", "auto");
+    public TenantView(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
 
         FormLayout formLayout = new FormLayout();
         formLayout.add(tenantIdField, firstNameField, lastNameField, contactNumberField,
@@ -55,7 +62,7 @@ public class TenantView extends VerticalLayout {
             saveTenant();
         });
         addButton.addClickListener(event -> saveTenant());
-        viewButton.addClickListener(event -> viewTenant());
+        viewButton.addClickListener(event -> readTenant());
         editButton.addClickListener(event -> editTenant());
         deleteButton.addClickListener(event -> deleteTenant());
 
@@ -103,37 +110,75 @@ public class TenantView extends VerticalLayout {
         bg5.set("background-color", "Black");
         bg5.set("border-radius", "8px");
 
-        add(heading, formLayout, footerContainer, tenantGrid);
+        add(formLayout, footerContainer, tenantGrid);
     }
 
     private void saveTenant() {
-        String tenantId = tenantIdField.getValue();
-        String firstName = firstNameField.getValue();
-        String lastName = lastNameField.getValue();
-        String contactNumber = contactNumberField.getValue();
-        String email = emailField.getValue();
-        String leaseId = leaseIdField.getValue();
+        Tenant tenant = new Tenant(
+                tenantIdField.getValue(),
+                firstNameField.getValue(),
+                lastNameField.getValue(),
+                contactNumberField.getValue(),
+                emailField.getValue(),
+                leaseIdField.getValue()
+        );
 
-        // You can perform actions to save the tenant data to your database here
-        // For simplicity, we are just logging the data in this example
-        System.out.println("Tenant ID: " + tenantId);
-        System.out.println("First Name: " + firstName);
-        System.out.println("Last Name: " + lastName);
-        System.out.println("Contact Number: " + contactNumber);
-        System.out.println("Email: " + email);
-        System.out.println("Lease ID: " + leaseId);
-
-        Notification.show("First Name: " + firstName + "Last Name: " + lastName + "Contact Number: "+ contactNumber
-                + "Email: " + email + "Lease ID: "+ leaseId);
+        try {
+            ResponseEntity<Tenant> response = restTemplate.postForEntity("http://localhost:50790/tenants/save", tenant, Tenant.class);
+            if (response.getStatusCode() == HttpStatus.CREATED) {
+                Notification.show("Tenant saved successfully");
+                clearFormFields();
+                readTenant(); // Optional: Refresh the grid after saving
+            } else {
+                Notification.show("Tenant saved successfully");
+            }
+        } catch (RestClientException e) {
+            Notification.show("Failed to save landlord");
+        }
+        clearFormFields();
     }
-    public void viewTenant(){
 
+    public void readTenant(){
+        try {
+            Tenant[] response = restTemplate.getForObject("http://localhost:50790/tenants/all", Tenant[].class);
+            if (response != null) {
+                tenants.clear();
+                tenants.addAll(Arrays.asList(response));
+                tenantDataProvider.refreshAll();
+
+            } else {
+                Notification.show("No tenants found");
+            }
+        } catch (RestClientException e) {
+            Notification.show("Failed to retrieve tenants from the server");
+        }
     }
+
+
     public void editTenant(){
 
     }
     public void deleteTenant(){
-
+        String tenantId = tenantIdField.getValue();
+        if (tenantId != null && !tenantId.isEmpty()) {
+            try {
+                restTemplate.delete("http://localhost:50790/tenants/delete/" + tenantId);
+                Notification.show("Tenant deleted successfully");
+                clearFormFields();
+              //  readTenant();
+            } catch (RestClientException e) {
+                Notification.show("failed to delete tenant");
+            }
+        } else {
+            Notification.show("tenant ID is required to delete");
+        }
     }
-
+    private void clearFormFields() {
+        tenantIdField.clear();
+        firstNameField.clear();
+        lastNameField.clear();
+        contactNumberField.clear();
+        emailField.clear();
+        leaseIdField.clear();
+    }
 }

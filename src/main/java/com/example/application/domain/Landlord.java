@@ -7,10 +7,9 @@ import java.util.Objects;
 public class Landlord implements Serializable {
     private String landlordId;
 
-    @NotNull
+
     private String firstname;
 
-    @NotNull
     private String lastname;
 
     private String contactNumber;
@@ -32,6 +31,16 @@ public class Landlord implements Serializable {
         this.email = builder.email;
         this.password = builder.password;
         this.address = builder.address;
+    }
+
+    public Landlord(String landlordId, String firstname, String lastname, String contactNumber, String email, String password, String address) {
+        this.landlordId = landlordId;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.password = password;
+        this.address = address;
     }
 
     public String getLandlordId() {
