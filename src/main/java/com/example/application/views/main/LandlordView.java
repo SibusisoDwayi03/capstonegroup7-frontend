@@ -5,6 +5,7 @@ import com.example.application.domain.Landlord;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -15,7 +16,7 @@ import com.vaadin.flow.router.Route;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("landlord")
+@Route(value = "landlord", layout = HomeView.class)
 public class LandlordView extends VerticalLayout {
 
         private final TextField landlordIdField = new TextField("Agent ID");
@@ -36,6 +37,12 @@ public class LandlordView extends VerticalLayout {
 
 
         public LandlordView() {
+            H2 heading = new H2("Land lord form:");
+
+            Style headingStyle = heading.getStyle();
+            headingStyle.set("margin-left", "auto");
+            headingStyle.set("margin-right", "auto");
+
             // Create a form layout and add form fields
             FormLayout formLayout = new FormLayout();
             formLayout.add(landlordIdField, firstNameField, lastNameField, contactNumberField, emailField, passwordField, addressField);
@@ -91,7 +98,7 @@ public class LandlordView extends VerticalLayout {
             bg4.set("background-color", "Black");
             bg4.set("border-radius", "8px");
 
-            add(formLayout, buttonGroup, LandlordGrid);
+            add(heading, formLayout, buttonGroup, LandlordGrid);
 
         }
 

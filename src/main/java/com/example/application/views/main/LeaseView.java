@@ -2,6 +2,8 @@ package com.example.application.views.main;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -11,7 +13,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 
 @PageTitle("lease")
-@Route("lease")
+@Route(value = "lease", layout = HomeView.class)
 @UIScope
 public class LeaseView extends VerticalLayout {
     private TextField leaseId = new TextField("Lease Id");
@@ -37,6 +39,15 @@ public class LeaseView extends VerticalLayout {
         terms.setPlaceholder("Enter in the terms");
         startDate.setPlaceholder("Select the start date");
         endDate.setPlaceholder("Select the end date");
+
+        H2 heading = new H2("Lease form:");
+
+        Style headingStyle = heading.getStyle();
+        headingStyle.set("margin-left", "auto");
+        headingStyle.set("margin-right", "auto");
+
+        FormLayout leaseForm = new FormLayout();
+        leaseForm.add(leaseId, terms, startDate, endDate);
 
         Style leaseIdStyle = leaseId.getStyle();
         leaseIdStyle.set("margin-left", "auto");
@@ -122,12 +133,6 @@ public class LeaseView extends VerticalLayout {
         bg5.set("background-color", "Black");
         bg5.set("border-radius", "8px");
 
-        add(leaseId, terms, startDate, endDate, buttonGroup);
-
-//    public LeaseView(){
-//        Lease myForm = new Lease();
-//        add(myForm);
-//
-//    }
+        add(heading, leaseForm, buttonGroup);
     }
 }
