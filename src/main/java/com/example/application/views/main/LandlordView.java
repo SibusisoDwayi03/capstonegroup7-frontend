@@ -2,31 +2,23 @@ package com.example.application.views.main;
 
 
 import com.example.application.domain.Landlord;
-import com.example.application.domain.Tenant;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestClientException;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Route("landlord")
 public class LandlordView extends VerticalLayout {
-        private RestTemplate restTemplate;
 
-        private final TextField landlordIdField = new TextField("Landlord ID");
+        private final TextField landlordIdField = new TextField("Agent ID");
         private final TextField firstNameField = new TextField("First Name");
         private final TextField lastNameField = new TextField("Last Name");
         private final TextField contactNumberField = new TextField("Contact Number");
@@ -39,12 +31,11 @@ public class LandlordView extends VerticalLayout {
         private final Button updateButton = new Button("Update");
         private final Button deleteButton = new Button("Delete");
 
-        private List<Landlord> landlords = new ArrayList<>();
-        private ListDataProvider<Landlord> landlordDataProvider = new ListDataProvider<>(landlords);
+    private List<Landlord> Landlords = new ArrayList<>();
+    private ListDataProvider<Landlord> LandlordDataProvider = new ListDataProvider<>(Landlords);
 
 
-        public LandlordView(RestTemplate restTemplate) {
-            this.restTemplate = restTemplate;
+        public LandlordView() {
             // Create a form layout and add form fields
             FormLayout formLayout = new FormLayout();
             formLayout.add(landlordIdField, firstNameField, lastNameField, contactNumberField, emailField, passwordField, addressField);
@@ -60,8 +51,12 @@ public class LandlordView extends VerticalLayout {
 
             // Create a grid to display agents
             Grid<Landlord> LandlordGrid = new Grid<>(Landlord.class);
-            LandlordGrid.setDataProvider(landlordDataProvider);
+            LandlordGrid.setDataProvider(LandlordDataProvider);
 
+//// Only add columns for the properties you want to display
+//        agentGrid.addColumn("agentId").setHeader("Agent ID");
+//        agentGrid.addColumn("firstName").setHeader("First Name");
+//        agentGrid.addColumn("lastName").setHeader("Last Name");
 
             // Add the form layout, buttons, and grid to the view
             Style bgs = buttonGroup.getStyle();
@@ -101,47 +96,16 @@ public class LandlordView extends VerticalLayout {
         }
 
         private void saveLandlord() {
-                Landlord landlord = new Landlord(
-                        landlordIdField.getValue(),
-                        firstNameField.getValue(),
-                        lastNameField.getValue(),
-                        contactNumberField.getValue(),
-                        emailField.getValue(),
-                        passwordField.getValue(),
-                        addressField.getValue()
-                );
+            // Retrieve values from form fields and save the agent (similar to previous code)
+            // ...
 
-                try {
-                    ResponseEntity<Landlord> response = restTemplate.postForEntity("http://localhost:50790/landlords/save", landlord, Landlord.class);
-                    if (response.getStatusCode() == HttpStatus.CREATED) {
-                        Notification.show("Landlord saved successfully");
-                        clearFormFields();
-                        readLandlord(); // Optional: Refresh the grid after saving
-                    } else {
-                        Notification.show("Landlord saved successfully");
-                    }
-                } catch (RestClientException e) {
-                    Notification.show("Failed to save landlord");
-                }
+            // Clear form fields after saving
             clearFormFields();
-            }
-
-
+        }
 
         private void readLandlord() {
-            try {
-                Landlord[] response = restTemplate.getForObject("http://localhost:50790/landlords/all", Landlord[].class);
-                if (response != null) {
-                    landlords.clear();
-                    landlords.addAll(Arrays.asList(response));
-                    landlordDataProvider.refreshAll();
-
-                } else {
-                    Notification.show("No landlords found");
-                }
-            } catch (RestClientException e) {
-                Notification.show("Failed to retrieve landlords from the server");
-            }
+            // Implement logic to read an agent from the backend (e.g., by ID)
+            // Update the form fields with the agent's details
         }
 
         private void updateLandlord() {
@@ -150,19 +114,8 @@ public class LandlordView extends VerticalLayout {
         }
 
         private void deleteLandlord() {
-            String landlordId = landlordIdField.getValue();
-            if (landlordId != null && !landlordId.isEmpty()) {
-                try {
-                    restTemplate.delete("http://localhost:50790/landlords/delete/" + landlordId);
-                    Notification.show("Landlord deleted successfully");
-                    clearFormFields();
-                    //  readTenant();
-                } catch (RestClientException e) {
-                    Notification.show("Landlord to delete tenant");
-                }
-            } else {
-                Notification.show("landlord ID is required to delete");
-            }
+            // Implement logic to delete an agent from the backend (e.g., by ID)
+            // Remove the agent from the list and refresh the data provider
         }
 
         private void clearFormFields() {
