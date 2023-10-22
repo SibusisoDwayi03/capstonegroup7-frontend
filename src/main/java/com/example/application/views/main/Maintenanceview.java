@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Route("maintenance")
+@Route(value = "maintenance", layout = HomeView.class)
 public class Maintenanceview extends VerticalLayout {
 
     private RestTemplate restTemplate;

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Route("landlord")
+@Route(value = "landlord", layout = HomeView.class)
 public class LandlordView extends VerticalLayout {
         private RestTemplate restTemplate;
 
