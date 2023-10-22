@@ -23,15 +23,15 @@ public class LeaseApi {
         return null;
     }
 
-    public Lease read() {
+    public Lease read(String id) {
         return null;
     }
 
-    public Lease update() {
+    public Lease update(String id) {
         return null;
     }
 
-    public Lease delete() {
+    public Lease delete(String id) {
         String deleteRequest = url + "/delete/"; //+ Lease.getLeaseId();
         restTemplate.delete(deleteRequest);
         return null;

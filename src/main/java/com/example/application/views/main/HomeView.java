@@ -3,9 +3,11 @@ package com.example.application.views.main;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
@@ -18,7 +20,15 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 public class HomeView extends AppLayout {
     public HomeView(){
         createNavBar();
-        addLinks();
+        navlinks();
+
+        H2 heading = new H2("Home:");
+
+        Style headingStyle = heading.getStyle();
+        headingStyle.set("margin-left", "auto");
+        headingStyle.set("margin-right", "auto");
+
+
     }
 
     private void createNavBar(){
@@ -37,7 +47,7 @@ public class HomeView extends AppLayout {
         addToNavbar(header);
     }
 
-    private void addLinks() {
+    private void navlinks() {
         addToDrawer(new VerticalLayout(
                 new RouterLink("Home", HomeView.class),
                 new RouterLink("Agent", AgentFormView.class),
@@ -48,7 +58,5 @@ public class HomeView extends AppLayout {
                 new RouterLink("Property", PropertyView.class ),
                 new RouterLink("Tenant", TenantView.class)
         ));
-
-        //Style menuStyle = addToDrawer().getStyle();
     }
 }

@@ -3,6 +3,8 @@ package com.example.application.views.main;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.checkbox.Checkbox;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
@@ -59,7 +61,6 @@ public class ApplicationView extends VerticalLayout {
     public ApplicationView(){
         // Adds place holders for the various fields.
         applicationId.setPlaceholder("Auto generated application id");
-
         bankStatement.setLabel("Click if bank statement is true");
         paySlip.setLabel("Click if pay slip is true");
         status.setPlaceholder("Enter in the status");
@@ -74,6 +75,16 @@ public class ApplicationView extends VerticalLayout {
         tenantId.setPlaceholder("Tenant id");
         copyOfId.setLabel("Click if copy of id is true");
         references.setPlaceholder("Enter in references");
+
+        H2 heading = new H2("Application form:");
+
+        Style headingStyle = heading.getStyle();
+        headingStyle.set("margin-left", "auto");
+        headingStyle.set("margin-right", "auto");
+
+        FormLayout applicationForm = new FormLayout();
+        applicationForm.add(applicationId, bankStatement, paySlip, status, adress, email, contactNumber, id
+        , firstName, lastName, applicationDate, propertyId, tenantId, copyOfId, references);
 
         // Styles the various field components.
         Style applicationIdStyle = applicationId.getStyle();
@@ -211,7 +222,6 @@ public class ApplicationView extends VerticalLayout {
         bg5.set("border-radius", "8px");
 
         // This adds the components to the web page.
-        add(applicationId, bankStatement, paySlip, status, adress, email, contactNumber, id,
-                firstName, lastName, applicationDate, propertyId, tenantId, copyOfId, references, buttonGroup);
+        add(heading, applicationForm, buttonGroup);
     }
 }

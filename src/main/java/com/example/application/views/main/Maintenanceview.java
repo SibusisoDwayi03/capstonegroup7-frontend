@@ -5,6 +5,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -36,6 +37,11 @@ public class Maintenanceview extends VerticalLayout {
     private ListDataProvider<Maintenance> maintenanceDataProvider = new ListDataProvider<>(maintenances);
 
     public Maintenanceview() {
+        H2 heading = new H2("Maintenance form:");
+
+        Style headingStyle = heading.getStyle();
+        headingStyle.set("margin-left", "auto");
+        headingStyle.set("margin-right", "auto");
 
         // Create a form layout and add form fields
         FormLayout formLayout = new FormLayout();
@@ -100,7 +106,7 @@ public class Maintenanceview extends VerticalLayout {
         bg5.set("background-color", "Black");
         bg5.set("border-radius", "8px");
 
-        add(formLayout, buttonLayout, maintenanceGrid);
+        add(heading, formLayout, buttonLayout, maintenanceGrid);
     }
 
     private void saveMaintenance() {

@@ -2,6 +2,7 @@ package com.example.application.views.main;
 
 import com.example.application.domain.Tenant;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
@@ -35,6 +36,12 @@ public class TenantView extends VerticalLayout {
     private ListDataProvider<Tenant> tenantDataProvider = new ListDataProvider<>(tenants);
 
     public TenantView() {
+        H2 heading = new H2("Tenant form:");
+
+        Style headingStyle = heading.getStyle();
+        headingStyle.set("margin-left", "auto");
+        headingStyle.set("margin-right", "auto");
+
         FormLayout formLayout = new FormLayout();
         formLayout.add(tenantIdField, firstNameField, lastNameField, contactNumberField,
                 emailField, leaseIdField, signupButton);
@@ -96,7 +103,7 @@ public class TenantView extends VerticalLayout {
         bg5.set("background-color", "Black");
         bg5.set("border-radius", "8px");
 
-        add(formLayout, footerContainer, tenantGrid);
+        add(heading, formLayout, footerContainer, tenantGrid);
     }
 
     private void saveTenant() {
