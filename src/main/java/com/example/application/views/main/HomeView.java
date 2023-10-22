@@ -58,7 +58,7 @@ public class HomeView extends AppLayout {
         RouterLink homeLink = new RouterLink("", HomeView.class);
         homeLink.add(new Button("Home", VaadinIcon.HOME.create()));
 
-        RouterLink agentLink = new RouterLink("", AgentFormView.class);
+        RouterLink agentLink = new RouterLink("", AgentView.class);
         agentLink.add(new Button("Agent", VaadinIcon.USER.create()));
 
         RouterLink applicationLink = new RouterLink("", ApplicationView.class);

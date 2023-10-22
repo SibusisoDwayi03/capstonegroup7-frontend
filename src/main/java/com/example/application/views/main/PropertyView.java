@@ -2,24 +2,16 @@ package com.example.application.views.main;
 
 import com.example.application.domain.Property;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Route(value = "property-view", layout = HomeView.class)
+@Route("property-view")
 public class PropertyView extends VerticalLayout {
     public PropertyView() {
-        H2 heading = new H2("Property:");
-
-        Style headingStyle = heading.getStyle();
-        headingStyle.set("margin-left", "auto");
-        headingStyle.set("margin-right", "auto");
-
         // Create a list of property items
         List<Property> properties = new ArrayList<>();
         properties.add(new Property(
@@ -56,7 +48,7 @@ public class PropertyView extends VerticalLayout {
         }).setHeader("Image");
 
         // Add the Grid to the layout
-        add(heading, propertyGrid);
+        add(propertyGrid);
     }
 }
 

@@ -9,7 +9,7 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.spring.annotation.UIScope;
 
-@Route("landing")
+@Route("")
 @PageTitle("Real Estate Management System")
 @UIScope
 @StyleSheet("mytodo/styles.css") // Link to  CSS file

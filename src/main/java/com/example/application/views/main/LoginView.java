@@ -51,7 +51,7 @@ public class LoginView extends VerticalLayout {
     }
 
     private void login() {
-        UI.getCurrent().navigate("landing");
+        UI.getCurrent().navigate("home");
     }
 
     private boolean isValidLogin(String username, String password) {
