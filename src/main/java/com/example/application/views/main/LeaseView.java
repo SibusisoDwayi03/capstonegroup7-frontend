@@ -6,6 +6,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -25,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @PageTitle("lease")
-@Route("lease")
+@Route(value = "lease", layout = HomeView.class)
 @UIScope
 public class LeaseView extends VerticalLayout {
     private RestTemplate restTemplate;
@@ -99,6 +100,12 @@ public class LeaseView extends VerticalLayout {
         buttonGroup.add(delete);
         buttonGroup.add(findAll);
 
+        H2 heading = new H2("Lease form:");
+
+        Style headingStyle = heading.getStyle();
+        headingStyle.set("margin-left", "auto");
+        headingStyle.set("margin-right", "auto");
+
         Style bgs = buttonGroup.getStyle();
         bgs.set("margin-left", "auto");
         bgs.set("margin-right", "auto");
@@ -138,7 +145,7 @@ public class LeaseView extends VerticalLayout {
         bg5.set("background-color", "Black");
         bg5.set("border-radius", "8px");
 
-        add(leaseId, terms, startDate, endDate, buttonGroup, LeaseGrid);
+        add(heading, formLayout, buttonGroup, LeaseGrid);
     }
 
         private void saveLease () {

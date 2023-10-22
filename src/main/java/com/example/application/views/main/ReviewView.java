@@ -6,6 +6,7 @@ import com.example.application.domain.Review;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Route("reviews")
+@Route(value = "reviews", layout = HomeView.class)
 public class ReviewView extends VerticalLayout {
     private RestTemplate restTemplate;
 
@@ -43,6 +44,13 @@ public class ReviewView extends VerticalLayout {
 
     public ReviewView(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
+
+        H2 heading = new H2("Review form:");
+
+        Style headingStyle = heading.getStyle();
+        headingStyle.set("margin-left", "auto");
+        headingStyle.set("margin-right", "auto");
+
         // Create a form layout and add form fields
         FormLayout formLayout = new FormLayout();
         formLayout.add(reviewIdField, propertyIdField, tenantIdField, ratingField, commentField);
@@ -94,7 +102,7 @@ public class ReviewView extends VerticalLayout {
         bg4.set("background-color", "Black");
         bg4.set("border-radius", "8px");
 
-        add(formLayout, buttonGroup, ReviewGrid);
+        add(heading, formLayout, buttonGroup, ReviewGrid);
 
     }
 
