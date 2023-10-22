@@ -79,7 +79,10 @@ public class HomeView extends AppLayout {
         RouterLink tenantLink = new RouterLink("", TenantView.class);
         tenantLink.add(new Button("Tenant", VaadinIcon.USER_CHECK.create()));
 
-        links.add(homeLink, agentLink, applicationLink, landLordLink, leaseLink, maintenanceLink, propertyLink, tenantLink);
+        RouterLink reviewLink = new RouterLink("", ReviewView.class);
+        reviewLink.add(new Button("Review", VaadinIcon.ARCHIVE.create()));
+
+        links.add(homeLink, agentLink, applicationLink, landLordLink, leaseLink, maintenanceLink, propertyLink, tenantLink, reviewLink);
 
         addToDrawer(links);
     }
