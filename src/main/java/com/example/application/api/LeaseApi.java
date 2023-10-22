@@ -2,25 +2,15 @@ package com.example.application.api;
 
 import com.example.application.domain.Lease;
 import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import java.time.LocalDate;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 public class LeaseApi {
     private RestTemplate restTemplate = new RestTemplate();
 
-    private String url = "http://localhost:50789/capstonegroup7/lease";
-
-    private String terms = "skop";
-    private LocalDate startDate = LocalDate.parse("2023-10-20");
-    private LocalDate endDate = LocalDate.parse("2023-10-20");
-
-    public Lease save() {
-        HttpEntity<Lease> saveRequest = new HttpEntity<>(new Lease(terms, startDate, endDate));
-        return null;
+    private void save() {
+//        Lease lease = new Lease();
+//        return null;
     }
 
     public Lease read(String id) {
@@ -32,7 +22,7 @@ public class LeaseApi {
     }
 
     public Lease delete(String id) {
-        String deleteRequest = url + "/delete/"; //+ Lease.getLeaseId();
+        String deleteRequest = "/delete/"; //+ Lease.getLeaseId();
         restTemplate.delete(deleteRequest);
         return null;
     }
