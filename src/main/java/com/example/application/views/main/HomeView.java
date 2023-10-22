@@ -5,6 +5,7 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -30,7 +31,10 @@ public class HomeView extends AppLayout {
         headingStyle.set("margin-left", "auto");
         headingStyle.set("margin-right", "auto");
 
-
+        // Trying to set a background image.
+        Image home = new Image();
+        home.setMaxWidth("800px");
+        home.setMaxHeight("600px");
     }
 
     private void createNavBar(){
