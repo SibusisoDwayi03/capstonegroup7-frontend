@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Route("Tenant")
+@Route(value = "Tenant", layout = HomeView.class)
 //@RouteAlias("tenant")
 @SpringComponent
 @UIScope

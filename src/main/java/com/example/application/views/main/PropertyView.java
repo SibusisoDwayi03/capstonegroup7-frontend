@@ -9,7 +9,7 @@ import com.vaadin.flow.router.Route;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("property-view")
+@Route(value = "property-view", layout = HomeView.class)
 public class PropertyView extends VerticalLayout {
     public PropertyView() {
         // Create a list of property items

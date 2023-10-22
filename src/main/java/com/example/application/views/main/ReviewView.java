@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Route("reviews")
+@Route(value = "reviews", layout = HomeView.class)
 public class ReviewView extends VerticalLayout {
     private RestTemplate restTemplate;
 

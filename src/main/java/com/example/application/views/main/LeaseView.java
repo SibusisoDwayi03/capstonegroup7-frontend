@@ -25,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @PageTitle("lease")
-@Route("lease")
+@Route(value = "lease", layout = HomeView.class)
 @UIScope
 public class LeaseView extends VerticalLayout {
     private RestTemplate restTemplate;

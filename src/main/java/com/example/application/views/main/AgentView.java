@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Route("agent")
+@Route(value = "agent", layout = HomeView.class)
 @UIScope
 public class AgentView extends VerticalLayout {
     private RestTemplate restTemplate;
