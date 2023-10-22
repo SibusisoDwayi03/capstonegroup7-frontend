@@ -12,8 +12,8 @@ import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.spring.annotation.UIScope;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
-@PageTitle("Rental Real Estate Management")
-@Route("home")
+@PageTitle("Home")
+@Route(value = "home")
 @UIScope
 public class HomeView extends AppLayout {
     public HomeView(){
