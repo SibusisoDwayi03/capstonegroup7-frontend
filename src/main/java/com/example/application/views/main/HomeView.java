@@ -2,8 +2,10 @@ package com.example.application.views.main;
 
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -48,15 +50,33 @@ public class HomeView extends AppLayout {
     }
 
     private void navlinks() {
-        addToDrawer(new VerticalLayout(
-                new RouterLink("Home", HomeView.class),
-                new RouterLink("Agent", AgentFormView.class),
-                new RouterLink("Application", ApplicationView.class),
-                new RouterLink("Land lord", LandlordView.class),
-                new RouterLink("Lease", LeaseView.class),
-                new RouterLink("Maintenance", Maintenanceview.class),
-                new RouterLink("Property", PropertyView.class ),
-                new RouterLink("Tenant", TenantView.class)
-        ));
+        VerticalLayout links = new VerticalLayout();
+        RouterLink homeLink = new RouterLink("", HomeView.class);
+        homeLink.add(new Button("Home", VaadinIcon.HOME.create()));
+
+        RouterLink agentLink = new RouterLink("", AgentFormView.class);
+        agentLink.add(new Button("Agent", VaadinIcon.USER.create()));
+
+        RouterLink applicationLink = new RouterLink("", ApplicationView.class);
+        applicationLink.add(new Button("Application", VaadinIcon.ANCHOR.create()));
+
+        RouterLink landLordLink = new RouterLink("", LandlordView.class);
+        landLordLink.add(new Button("Landlord", VaadinIcon.CALENDAR_USER.create()));
+
+        RouterLink leaseLink = new RouterLink("", LeaseView.class);
+        leaseLink.add(new Button("Lease", VaadinIcon.CONNECT.create()));
+
+        RouterLink maintenanceLink = new RouterLink("", Maintenanceview.class);
+        maintenanceLink.add(new Button("Maintenance", VaadinIcon.WRENCH.create()));
+
+        RouterLink propertyLink = new RouterLink("", PropertyView.class );
+        propertyLink.add(new Button("Property", VaadinIcon.HOME_O.create()));
+
+        RouterLink tenantLink = new RouterLink("", TenantView.class);
+        tenantLink.add(new Button("Tenant", VaadinIcon.USER_CHECK.create()));
+
+        links.add(homeLink, agentLink, applicationLink, landLordLink, leaseLink, maintenanceLink, propertyLink, tenantLink);
+
+        addToDrawer(links);
     }
 }
