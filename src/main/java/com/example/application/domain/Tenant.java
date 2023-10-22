@@ -29,6 +29,15 @@ public class Tenant implements Serializable {
         this.leaseId = builder.leaseId;
     }
 
+    public Tenant(String tenantId, String firstName, String lastName, String contactNumber, String email, String leaseId) {
+        this.tenantId = tenantId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.contactNumber = contactNumber;
+        this.email = email;
+        this.leaseId = leaseId;
+    }
+
     public String getTenantId() {
         return tenantId;
     }

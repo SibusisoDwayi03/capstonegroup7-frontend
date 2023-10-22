@@ -11,6 +11,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.ListDataProvider;
 import com.vaadin.flow.dom.Style;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
@@ -20,9 +21,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Route("agent-form")
-public class AgentFormView extends VerticalLayout {
+@Route("agent")
+@UIScope
+public class AgentView extends VerticalLayout {
     private RestTemplate restTemplate;
+
     private final TextField agentIdField = new TextField("Agent ID");
     private final TextField firstNameField = new TextField("First Name");
     private final TextField lastNameField = new TextField("Last Name");
@@ -39,18 +42,16 @@ public class AgentFormView extends VerticalLayout {
     private List<Agent> agents = new ArrayList<>();
     private ListDataProvider<Agent> agentDataProvider = new ListDataProvider<>(agents);
 
-    private Grid<Agent> agentGrid = new Grid<>(Agent.class);
 
-    public AgentFormView(RestTemplate restTemplate) {
+    public AgentView(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
-
         // Create a form layout and add form fields
         FormLayout formLayout = new FormLayout();
         formLayout.add(agentIdField, firstNameField, lastNameField, contactNumberField, emailField, passwordField, addressField);
 
         // Create a layout for buttons
-        HorizontalLayout buttonLayout = new HorizontalLayout(saveButton, readButton, updateButton, deleteButton);
-        buttonLayout.setSpacing(true);
+        HorizontalLayout buttonGroup = new HorizontalLayout(saveButton, readButton, updateButton, deleteButton);
+        buttonGroup.setSpacing(true);
 
         saveButton.addClickListener(event -> saveAgent());
         readButton.addClickListener(event -> readAgent());
@@ -58,11 +59,12 @@ public class AgentFormView extends VerticalLayout {
         deleteButton.addClickListener(event -> deleteAgent());
 
         // Create a grid to display agents
-        add(formLayout, buttonLayout, agentGrid);
-        agentGrid.setDataProvider(agentDataProvider);
+        Grid<Agent> AgentGrid = new Grid<>(Agent.class);
+        AgentGrid.setDataProvider(agentDataProvider);
+
 
         // Add the form layout, buttons, and grid to the view
-        Style bgs = buttonLayout.getStyle();
+        Style bgs = buttonGroup.getStyle();
         bgs.set("margin-left", "auto");
         bgs.set("margin-right", "auto");
 
@@ -94,7 +96,8 @@ public class AgentFormView extends VerticalLayout {
         bg4.set("background-color", "Black");
         bg4.set("border-radius", "8px");
 
-        add(formLayout, buttonLayout, agentGrid);
+        add(formLayout, buttonGroup, AgentGrid);
+
     }
 
     private void saveAgent() {
@@ -109,27 +112,28 @@ public class AgentFormView extends VerticalLayout {
         );
 
         try {
-            ResponseEntity<Agent> response = restTemplate.postForEntity("http://localhost:50790/agents", agent, Agent.class);
+            ResponseEntity<Agent> response = restTemplate.postForEntity("http://localhost:50790/agents/save", agent, Agent.class);
             if (response.getStatusCode() == HttpStatus.CREATED) {
                 Notification.show("Agent saved successfully");
                 clearFormFields();
-                readAgent();
+                readAgent(); // Optional: Refresh the grid after saving
             } else {
-                Notification.show("Failed to save agent");
+                Notification.show("Agent saved successfully");
             }
         } catch (RestClientException e) {
-            Notification.show("Failed to save agent");
+            Notification.show("Failed to save landlord");
         }
+        clearFormFields();
     }
 
-    private void readAgent() {
+        private void readAgent() {
         try {
-
-            Agent[] response = restTemplate.getForObject("http://localhost:50790/agents", Agent[].class);
+            Agent[] response = restTemplate.getForObject("http://localhost:50790/agents/all", Agent[].class);
             if (response != null) {
                 agents.clear();
                 agents.addAll(Arrays.asList(response));
                 agentDataProvider.refreshAll();
+
             } else {
                 Notification.show("No agents found");
             }
@@ -147,12 +151,12 @@ public class AgentFormView extends VerticalLayout {
         String agentId = agentIdField.getValue();
         if (agentId != null && !agentId.isEmpty()) {
             try {
-                restTemplate.delete("http://localhost:50790/agents/{{agentId}}", agentId);
+                restTemplate.delete("http://localhost:50790/agents/delete/" + agentId);
                 Notification.show("Agent deleted successfully");
                 clearFormFields();
-                readAgent();
+                //  readTenant();
             } catch (RestClientException e) {
-                Notification.show("Failed to delete agent");
+                Notification.show("Agent to delete tenant");
             }
         } else {
             Notification.show("Agent ID is required to delete");
@@ -169,4 +173,3 @@ public class AgentFormView extends VerticalLayout {
         addressField.clear();
     }
 }
-

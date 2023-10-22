@@ -23,9 +23,6 @@ public class Agent implements Serializable {
 
     private String address;
 
-
-    public Agent(String value, String firstNameFieldValue, String lastNameFieldValue, String contactNumberFieldValue, String emailFieldValue, String passwordFieldValue, String addressFieldValue){}
-
     private Agent(Builder builder){
         this.agentId = builder.agentId;
         this.firstname = builder.firstname;
@@ -36,6 +33,16 @@ public class Agent implements Serializable {
         this.address = builder.address;
 
 
+    }
+
+    public Agent(String agentId, String firstname, String lastname, String contactnumber, String email, String password, String address) {
+        this.agentId = agentId;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.contactnumber = contactnumber;
+        this.email = email;
+        this.password = password;
+        this.address = address;
     }
 
     public String getAgentId() {

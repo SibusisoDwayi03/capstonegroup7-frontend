@@ -21,6 +21,13 @@ public class Maintenance implements Serializable {
 
     }
 
+    public Maintenance(String requestId, String propertyId, String description, LocalDate requestDate) {
+        this.requestId = requestId;
+        this.propertyId = propertyId;
+        this.description = description;
+        this.requestDate = requestDate;
+    }
+
     public String getRequestId() {
         return requestId;
     }
